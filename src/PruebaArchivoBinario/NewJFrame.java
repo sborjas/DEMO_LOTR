@@ -209,7 +209,7 @@ public class NewJFrame extends javax.swing.JFrame {
             if(a.Ingresar(name, pass)){
                 JOptionPane.showMessageDialog (null, "Se ha autenticado correctamente", "Ingresar", JOptionPane.INFORMATION_MESSAGE);
             }else{
-              JOptionPane.showMessageDialog (null, "Usuario o contraseña incorrecta", "Ingresar", JOptionPane.INFORMATION_MESSAGE);  
+              JOptionPane.showMessageDialog (null, "Usuario no existe o contraseña incorrecta", "Ingresar", JOptionPane.INFORMATION_MESSAGE);  
               
             }
         } catch (IOException ex) {

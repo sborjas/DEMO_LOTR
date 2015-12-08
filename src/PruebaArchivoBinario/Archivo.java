@@ -50,13 +50,19 @@ public class Archivo {
         while(players.getFilePointer()<players.length()){
             String n = players.readUTF();
             String p = players.readUTF();
-            players.skipBytes(5);
+            players.readInt();
+            boolean a = players.readBoolean();
             if(name.equals(n) && pass.equals(p)){
-                return true;
+                if(a==true)
+                    return true;
             }
         }
         return false;
     }
+    
+    //public boolean cambiarPass(String n, String pV,String pN)throws IOException{
+        
+    //}
     
     public boolean borrarUsuario(String name) throws IOException{
         players.seek(0);       
@@ -87,7 +93,7 @@ public class Archivo {
             if(nom.equals(name)){         
                 return true;
             }
-          
+                                        
         }
         return false;
         
@@ -115,9 +121,9 @@ public class Archivo {
             int p = players.readInt();
             boolean a = players.readBoolean();
             
-            if(a == true){
+            //if(a == true){
                 System.out.println("Nombre: "+n+ " Contraseña: "+pass+ " Puntos: "+p + " Activado: "+a);
-            }
+            //}
         }
     }
 }
