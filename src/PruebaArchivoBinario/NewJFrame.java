@@ -40,7 +40,7 @@ public class NewJFrame extends javax.swing.JFrame {
         txtPuntos = new javax.swing.JTextField();
         txtPass = new javax.swing.JPasswordField();
         print = new javax.swing.JButton();
-        newPass = new javax.swing.JTextField();
+        newPass = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -111,9 +111,9 @@ public class NewJFrame extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(146, 146, 146)
                         .addComponent(print))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(newPass, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(8, 8, 8)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(73, 73, 73)
+                        .addComponent(newPass, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(59, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -135,9 +135,9 @@ public class NewJFrame extends javax.swing.JFrame {
                     .addComponent(cmdBorrar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(print)
-                .addGap(18, 18, 18)
+                .addGap(29, 29, 29)
                 .addComponent(newPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(52, Short.MAX_VALUE))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
 
         pack();
@@ -172,7 +172,18 @@ public class NewJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_cmdAgregarActionPerformed
 
     private void cmdCambiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdCambiarActionPerformed
+        String nombre = txtNombre.getText();
+        String passv = String.valueOf(txtPass.getPassword());
+        String passn = String.valueOf(newPass.getPassword());
         
+        try {
+            if(a.cambiarPass(nombre, passv, passn)){
+                JOptionPane.showMessageDialog (null, "Contraseña cambiada exitosamente", "Cambiar Contraseña", JOptionPane.INFORMATION_MESSAGE); 
+            }
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog (null, ""+ex, "Cambiar Contraseña", JOptionPane.INFORMATION_MESSAGE); 
+        }
+      
     }//GEN-LAST:event_cmdCambiarActionPerformed
 
     private void cmdBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdBorrarActionPerformed
@@ -257,7 +268,7 @@ public class NewJFrame extends javax.swing.JFrame {
     private javax.swing.JButton cmdBorrar;
     private javax.swing.JButton cmdCambiar;
     private javax.swing.JButton cmdIngresar;
-    private javax.swing.JTextField newPass;
+    private javax.swing.JPasswordField newPass;
     private javax.swing.JButton print;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JPasswordField txtPass;

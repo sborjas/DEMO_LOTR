@@ -22,7 +22,7 @@ public class Archivo {
     public Archivo(){
         try{
             new File(ROOT_FOLDER).mkdirs();
-            players = new RandomAccessFile(ROOT_FOLDER+"/players.sml","rw");
+            players = new RandomAccessFile(ROOT_FOLDER+"/players.pl","rw");
             
         }
         catch(IOException e){
@@ -32,16 +32,15 @@ public class Archivo {
     
     public boolean AgregarPlayer(String name,String pass,int points,Boolean activado) throws IOException{  
        
-        if(!getName(name)){
-           players.seek(players.length()); 
-           players.writeUTF(name); //escribir nombre
-           players.writeUTF(pass); //escribir pass
-           players.writeInt(points);   //escribir puntos
-           players.writeBoolean(activado);
-           //players.seek(0);
-           return true; 
+        if(getName(name)){
+           return false; 
         }
-        return false;
+        players.seek(players.length()); 
+        players.writeUTF(name); //escribir nombre
+        players.writeUTF(pass); //escribir pass
+        players.writeInt(points);   //escribir puntos
+        players.writeBoolean(activado);
+        return true;
          
     }
     
@@ -60,9 +59,25 @@ public class Archivo {
         return false;
     }
     
-    //public boolean cambiarPass(String n, String pV,String pN)throws IOException{
-        
-    //}
+    public boolean cambiarPass(String n, String pV,String pN)throws IOException{
+        players.seek(0);
+        while(players.getFilePointer()<players.length()){
+            String no = players.readUTF();
+            String pa = players.readUTF();
+            players.readInt();
+            Boolean a = players.readBoolean();
+            int pointer = (int)buscar(no);
+            if((no.equals(no)&&pa.equals(pV))&&a==true){
+                players.seek(players.getFilePointer()-pointer);
+                players.readUTF();
+                players.writeUTF(pN);
+                players.readInt();
+                players.readBoolean();
+                return true;
+            }
+        }
+        return false;
+    }
     
     public boolean borrarUsuario(String name) throws IOException{
         players.seek(0);       
@@ -99,6 +114,20 @@ public class Archivo {
         
     }
     
+    public boolean isActivado() throws IOException{
+        players.seek(0);
+        while(players.getFilePointer() < players.length()){
+            players.readUTF();
+            players.readUTF();
+            players.readInt();
+            Boolean act = players.readBoolean();
+            if(act == true){
+                return true;
+            }
+        }
+        return false;
+    }
+    
     public long buscar(String name) throws IOException{
         players.seek(0);
         while(players.getFilePointer()<players.length()){
@@ -108,6 +137,19 @@ public class Archivo {
             players.readInt();
             players.readBoolean();
             
+        }
+        return -1;
+    }
+    
+    public long buscarPass(String pass) throws IOException{
+        players.seek(0);
+        while(players.getFilePointer() < players.length()){
+            players.readUTF();
+            String pas =players.readUTF();
+            if(pas.equals(pass))
+                return players.getFilePointer();
+            players.readInt();
+            players.readBoolean();
         }
         return -1;
     }
