@@ -60,23 +60,58 @@ public class Archivo {
     }
     
     public boolean cambiarPass(String n, String pV,String pN)throws IOException{
+        
         players.seek(0);
         while(players.getFilePointer()<players.length()){
             String no = players.readUTF();
             String pa = players.readUTF();
             players.readInt();
             Boolean a = players.readBoolean();
-            int pointer = (int)buscar(no);
-            if((no.equals(no)&&pa.equals(pV))&&a==true){
-                players.seek(players.getFilePointer()-pointer);
+            long pointer = buscar(no);
+            if(pointer != -1 && (no.equals(n)&&pa.equals(pV))&&a){
+                players.seek(pointer);
                 players.readUTF();
                 players.writeUTF(pN);
                 players.readInt();
                 players.readBoolean();
                 return true;
             }
+           /*
+            else{
+                players.readUTF();
+                players.readUTF();
+                players.readInt();
+                players.readBoolean();
+                //return false;
+            }
+            */
+            
+            
         }
         return false;
+                
+        
+        /*
+        players.seek(0);
+        long pointer = buscar(n);
+        if(pointer != -1)
+        {
+            players.seek(pointer);
+            players.readUTF();
+            String password = players.readUTF();
+            players.readInt();
+            Boolean active = players.readBoolean();
+            
+            if(password.equals(pV) && active)
+            {
+                players.seek(pointer);
+                players.readUTF();
+                players.writeUTF(pN);
+                return true;
+            }
+        }
+        return false;
+               */
     }
     
     public boolean borrarUsuario(String name) throws IOException{

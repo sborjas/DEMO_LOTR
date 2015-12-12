@@ -179,6 +179,8 @@ public class NewJFrame extends javax.swing.JFrame {
         try {
             if(a.cambiarPass(nombre, passv, passn)){
                 JOptionPane.showMessageDialog (null, "Contraseña cambiada exitosamente", "Cambiar Contraseña", JOptionPane.INFORMATION_MESSAGE); 
+            }else{
+                JOptionPane.showMessageDialog (null, "No se cambio nada.", "Cambiar Contraseña", JOptionPane.INFORMATION_MESSAGE);
             }
         } catch (IOException ex) {
             JOptionPane.showMessageDialog (null, ""+ex, "Cambiar Contraseña", JOptionPane.INFORMATION_MESSAGE); 
